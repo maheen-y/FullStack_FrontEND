@@ -29,8 +29,7 @@ new Vue({
     // Fetch function used to retrieve lessons from backend with GET request
     created(){
         fetch("http://localhost:3000/lessons").then
-        (res => res.json()).then 
-        (json=>{
+        (res => res.json()).then (json=>{
             this.lessons = json;
         })
         .catch(error => console.log("Lessons could not be loaded", error));
@@ -89,6 +88,16 @@ new Vue({
             if (lesson.space_available > 0) {
                 lesson.space_available--;
                 this.basket.push(lesson);
+
+                fetch("http://localhost:3000/lessons/" + lesson._id, {
+                    method: "PUT", 
+                    headers: {"Content-Type": "application/json"}, 
+                    body: JSON.stringify({
+                        space_available: lesson.space_available
+                    })
+                }).then(res => res.json()).then(json => {
+                    console.log(json);
+                }).catch(error => console.log("Could not update lesson info", error));
             }
         },
 
@@ -96,6 +105,18 @@ new Vue({
         removeLesson(index, lesson) {
             this.basket.splice(index, 1);
             lesson.space_available++;
+
+
+            // Fetch updates lesson availability with PUT request
+            fetch ("http://localhost:3000/lessons/" + lesson._id, {
+                method: "PUT", 
+                headers: {"Content-Type": "application/json"} , 
+                body: JSON.stringify({
+                    space_available: lesson.space_available
+                }) 
+            }).then(res => res.json()).then(json =>{
+                console.log(json);
+            }). catch(error => console.log("Could not update lesson info", error));
         },
 
         // Checks if form is valid, submits orders and displays confirmation message
