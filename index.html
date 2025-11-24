@@ -40,6 +40,8 @@
                 </select>
             </div>
 
+            <!--All of the lessons being displayed-->
+
             <div v-for="(lesson, index) in sortedLessons" :key="index" class="lesson-template">
                 <img :src="lesson.image" :alt="lesson.subject">
                 <h3>{{ lesson.subject }}</h3>
