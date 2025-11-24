@@ -6,89 +6,8 @@ new Vue({
         sortOrder: "asc",
         showLessons: true,
 
-        lessons: [
-            {
-                ID: 1,
-                subject: "English",
-                location: "Barnet",
-                price: 40,
-                space_available: 5,
-                image: "./images/english.jpg"
-            },
-            {
-                ID: 2,
-                subject: "Maths",
-                location: "Edgware",
-                price: 50,
-                space_available: 5,
-                image: "./images/math.jpg"
-            },
-            {
-                ID: 3,
-                subject: "Biology",
-                location: "Finchley",
-                price: 45,
-                space_available: 5,
-                image: "./images/biology.jpg"
-            },
-            {
-                ID: 4,
-                subject: "Chemistry",
-                location: "Harrow",
-                price: 55,
-                space_available: 5,
-                image: "./images/chemistry.jpg"
-            },
-            {
-                ID: 5,
-                subject: "Physics",
-                location: "Hendon",
-                price: 60,
-                space_available: 5,
-                image: "./images/physics.jpg"
-            },
-            {
-                ID: 6,
-                subject: "Geography",
-                location: "Westminster",
-                price: 70,
-                space_available: 5,
-                image: "./images/geography.jpg"
-            },
-            {
-                ID: 7,
-                subject: "Computing",
-                location: "Kilburn",
-                price: 65,
-                space_available: 5,
-                image: "./images/computing.png"
-            },
-            {
-                ID: 8,
-                subject: "French",
-                location: "Battersea",
-                price: 40,
-                space_available: 5,
-                image: "./images/french.png"
-            },
-            {
-                ID: 9,
-                subject: "Spanish",
-                location: "Mile End",
-                price: 45,
-                space_available: 5,
-                image: "./images/spanish.jpg"
-            },
-            {
-                ID: 10,
-                subject: "Physical Education",
-                location: "East Ham",
-                price: 35,
-                space_available: 5,
-                image: "./images/PE.jpg"
-            }
-        ],
-
+        lessons: [],
+            
         // Lessons added to basket are stored in array
         basket: [],
 
@@ -106,6 +25,17 @@ new Vue({
         // Message displayed to confirm the order placed
         orderConfirmationMessage: ""
     },
+
+    // Fetch function used to retrieve lessons from backend with GET request
+    created(){
+        fetch("http://localhost:3000/lessons").then
+        (res => res.json()).then 
+        (json=>{
+            this.lessons = json;
+        })
+        .catch(error => console.log("Lessons could not be loaded", error));
+    }, 
+
 
     computed: {
         // Shows number of lessons added to basket
