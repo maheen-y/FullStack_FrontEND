@@ -1,53 +1,70 @@
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: wheat;
+}
 
-        body {
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            background-color: wheat;
-        }
+header {
+    text-align: center;
+    font-style: italic;
+}
 
-        header {
-            text-align: center;
-            font-style: italic;
-        }
+h1 {
+    text-align: center;
+    font-weight: bold;
+    color: red;
+}
 
-        h1 {
-            text-align: center;
-            font-weight: bold;
-            color: red;
-        }
+h2,
+h3 {
+    color: red;
+}
 
-        h2,h3{
-            color: red;
-        }
+/*Lessons styling*/
+.lesson-template {
+    background: white;
+    color: red;
+    text-align: left;
+    margin: 25px auto;
+    max-width: 300px;
+    padding: 10px;
+}
+
+/* Images styling*/
+img {
+    width: 100%;
+    height: 145px;
+    object-fit: cover;
+}
+
+p {
+    color: red;
+}
+
+/* Buttons styling*/
+button {
+    margin: 10px;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 8px;
+}
+
+button, 
+input[type="button"]{
+    background-color: white;
+    color: red;
+    border-radius: 8px;
+}
+
+/* Disabled checkout button*/
+button:disabled, 
+input[type="button"]:disabled{
+    cursor: not-allowed;
+}
+
+/* Styles for sorting*/
+.sorting-controls label,
+.sorting-controls select {
+    color: red;
+}
 
 
-        .lesson-template {
-            background: white;
-            color: red;
-            text-align: left;
-            margin: 25px auto;
-            max-width: 300px;
-            padding: 10px;
-        }
-
-        img {
-            width: 100%;
-            height: 145px;
-            object-fit: cover;
-        }
-
-        p {
-            color: red;
-        }
-
-        button {
-            margin: 10px;
-            padding: 10px 15px;
-            font-size: 16px;
-            border-radius: 8px;
-        }
-
-        .sorting-controls label,
-        .sorting-controls select {
-        color: red; 
-
-        }
