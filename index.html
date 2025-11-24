@@ -55,9 +55,9 @@
             </div>
         </div>
 
+        <!--Checkout Section-->
         <div v-else>
             <h1>Checkout Page</h1>
-
             <p v-if="orderConfirmationMessage" 
                style="text-align:center; color:red; font-weight:bold;">
                {{ orderConfirmationMessage }}
@@ -72,6 +72,7 @@
                     <button @click="removeLesson(index, lesson)">Remove from basket</button>
                 </div>
 
+                <!--Checkout form fields-->
                 <div class="checkout-form">
                     <h2>Personal details</h2>
 
@@ -81,7 +82,7 @@
                     </div>
                   
                     <div  class="form-field">
-      <label>Surname:</label>
+                    <label>Surname:</label>
                     <input type="text" v-model.trim="order.surname">
                     </div>
               
