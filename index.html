@@ -116,7 +116,7 @@
                 </div>
             </div>
 
-            <p v-else-if="orderConfirmationMessage" style="text-align:center; color:red;">
+            <p v-else-if="basket.length === 0 && !orderConfirmationMessage" style="text-align:center; color:red;">
                 Your basket is empty.
             </p>
         </div>
