@@ -6,6 +6,7 @@ var app = new Vue({
         sortOrder: "asc",
         showLessons: true,
 
+        // Lessons loaded from backend using fetch
         lessons: [],
             
         // Lessons added to basket are stored in array
@@ -105,7 +106,7 @@ var app = new Vue({
                     console.log("Unable to update lesson information, please try again", error);
                 });
             }
-        },   // ✅ FIXED: this bracket was missing!
+        }, 
 
         // Allows user to remove lesson from basket and changes availability accordingly
         removeLesson(index, lesson) {
