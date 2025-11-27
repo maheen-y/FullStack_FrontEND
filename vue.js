@@ -28,13 +28,13 @@ var app = new Vue({
     },
 
     // Fetch function used to retrieve lessons from backend with GET request
-    created(){
-        fetch("http://localhost:3000/lessons")
-        .then(function(res){
-            return res.json();
-        }).then(function(json){
-            app.lessons = json;
-        }).catch(function(error){
+    created() {
+        fetch("https://cst3144-school-app.onrender.com/lessons")
+        .then(res => res.json())
+        .then(json => {
+            this.lessons = json;
+        })
+        .catch(error => {
             console.log("Failed to retrieve lessons", error);
         });
     },
@@ -94,15 +94,16 @@ var app = new Vue({
 
                 // Fetch function updates lesson availability with PUT request
                 // Response in JSON format
-                fetch("http://localhost:3000/lessons/" + lesson._id, {
-                    method: "PUT", 
-                    headers: {"Content-Type": "application/json"}, 
-                    body: JSON.stringify({ space_available: lesson.space_available})
-                }).then(function(res){
-                    return res.json();
-                }).then(function(json){
+                fetch("https://cst3144-school-app.onrender.com/lessons/" + lesson._id, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ space_available: lesson.space_available })
+                })
+                .then(res => res.json())
+                .then(json => {
                     console.log("Lesson information has been updated", json);
-                }).catch(function(error){
+                })
+                .catch(error => {
                     console.log("Unable to update lesson information, please try again", error);
                 });
             }
@@ -114,17 +115,18 @@ var app = new Vue({
             lesson.space_available++;
 
             // Fetch updates lesson availability with PUT request
-            fetch("http://localhost:3000/lessons/" + lesson._id, {
-                method: "PUT", 
-                headers: {"Content-Type": "application/json"}, 
+            fetch("https://cst3144-school-app.onrender.com/lessons/" + lesson._id, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     space_available: lesson.space_available
                 }) 
-            }).then(function(res){
-                return res.json();
-            }).then(function(json){
+            })
+            .then(res => res.json())
+            .then(json => {
                 console.log("Lesson info updated successfully", json);
-            }).catch(function(error){
+            })
+            .catch(error => {
                 console.log("Unable to update lesson information", error);
             });
         },
@@ -147,18 +149,19 @@ var app = new Vue({
                 }; 
 
                 // Use fetch function for POST request to save new order
-                fetch("http://localhost:3000/orders", {
-                    method: "POST", 
+                fetch("https://cst3144-school-app.onrender.com/orders", {
+                    method: "POST",
                     headers: {
                         "Content-Type": "application/json"
-                    }, 
+                    },
                     body: JSON.stringify(personalDataForOrder)
-                }).then(function(res){
-                    res.json().then(function(json){
-                        console.log("Order successful", json);
-                        alert("Your order has successfully been saved");
-                    });
-                }).catch(function(error){
+                })
+                .then(res => res.json())
+                .then(json => {
+                    console.log("Order successful", json);
+                    alert("Your order has successfully been saved");
+                })
+                .catch(error => {
                     console.log("Your order has not been saved, please try again", error);
                 });
 
