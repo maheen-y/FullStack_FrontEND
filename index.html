@@ -49,7 +49,7 @@
                 <p>{{ lesson.location }}</p>
                 <p>Price: £{{ lesson.price }}</p>
                 <p v-if="lesson.space_available > 0">Spaces available: {{ lesson.space_available }}</p>
-                <p v-else>No spaces remaining</p>
+                <p v-else>You have reached the maximum number of lessons</p>
                 <input type="button" value="Add to basket" 
                        @click="addLessonToBasket(lesson)" 
                        :disabled="lesson.space_available === 0">
@@ -70,7 +70,8 @@
                     <h3>{{ lesson.subject }}</h3>
                     <p>{{ lesson.location }}</p>
                     <p>Price: £{{ lesson.price }}</p>
-                    <button @click="removeLesson(index, lesson)">Remove from basket</button>
+                    <input type="button" value="Remove from basket"
+                    @click="removeLesson(index, lesson)">
                 </div>
 
                 <!--Checkout form fields-->
