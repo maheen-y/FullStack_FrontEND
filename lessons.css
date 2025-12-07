@@ -48,16 +48,17 @@ button {
     border-radius: 8px;
 }
 
-button, 
-input[type="button"]{
+button,
+input[type="button"] {
     background-color: white;
     color: red;
     border-radius: 8px;
+    border: 1px red;
 }
 
 /* Disabled checkout button*/
-button:disabled, 
-input[type="button"]:disabled{
+button:disabled,
+input[type="button"]:disabled {
     cursor: not-allowed;
 }
 
@@ -66,5 +67,3 @@ input[type="button"]:disabled{
 .sorting-controls select {
     color: red;
 }
-
-

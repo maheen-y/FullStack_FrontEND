@@ -8,7 +8,7 @@ var app = new Vue({
 
         // Lessons loaded from backend using fetch
         lessons: [],
-            
+
         // Lessons added to basket are stored in array
         basket: [],
 
@@ -30,15 +30,15 @@ var app = new Vue({
     // Fetch function used to retrieve lessons from backend with GET request
     created() {
         fetch("https://cst3144-school-app.onrender.com/lessons")
-        .then(res => res.json())
-        .then(json => {
-            this.lessons = json;
-        })
-        .catch(error => {
-            console.log("Failed to retrieve lessons", error);
-        });
+            .then(res => res.json())
+            .then(json => {
+                this.lessons = json;
+            })
+            .catch(error => {
+                console.log("Failed to retrieve lessons", error);
+            });
     },
-           
+
     computed: {
         // Shows number of lessons added to basket
         lessonsInBasket() {
@@ -99,15 +99,15 @@ var app = new Vue({
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ space_available: lesson.space_available })
                 })
-                .then(res => res.json())
-                .then(json => {
-                    console.log("Lesson information has been updated", json);
-                })
-                .catch(error => {
-                    console.log("Unable to update lesson information, please try again", error);
-                });
+                    .then(res => res.json())
+                    .then(json => {
+                        console.log("Lesson information has been updated", json);
+                    })
+                    .catch(error => {
+                        console.log("Unable to update lesson information, please try again", error);
+                    });
             }
-        }, 
+        },
 
         // Allows user to remove lesson from basket and changes availability accordingly
         removeLesson(index, lesson) {
@@ -120,33 +120,33 @@ var app = new Vue({
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     space_available: lesson.space_available
-                }) 
+                })
             })
-            .then(res => res.json())
-            .then(json => {
-                console.log("Lesson info updated successfully", json);
-            })
-            .catch(error => {
-                console.log("Unable to update lesson information", error);
-            });
+                .then(res => res.json())
+                .then(json => {
+                    console.log("Lesson info updated successfully", json);
+                })
+                .catch(error => {
+                    console.log("Unable to update lesson information", error);
+                });
         },
 
         // Checks if form is valid, submits orders and displays confirmation message
         submitOrder() {
             if (this.isCheckoutFormValid) {
                 const personalDataForOrder = {
-                    firstName: this.order.firstName, 
+                    firstName: this.order.firstName,
                     surname: this.order.surname,
                     phone: this.order.phone,
-                    address: this.order.address, 
+                    address: this.order.address,
                     city: this.order.city,
                     postcode: this.order.postcode,
-                    email: this.order.email, 
+                    email: this.order.email,
                     lessons: this.basket.map(item => ({
                         id: item._id,
                         subject: item.subject
                     }))
-                }; 
+                };
 
                 // Use fetch function for POST request to save new order
                 fetch("https://cst3144-school-app.onrender.com/orders", {
@@ -156,17 +156,17 @@ var app = new Vue({
                     },
                     body: JSON.stringify(personalDataForOrder)
                 })
-                .then(res => res.json())
-                .then(json => {
-                    console.log("Order successful", json);
-                    alert("Your order has successfully been saved");
-                })
-                .catch(error => {
-                    console.log("Your order has not been saved, please try again", error);
-                });
+                    .then(res => res.json())
+                    .then(json => {
+                        console.log("Order successful", json);
+                        alert("Your order has successfully been saved");
+                    })
+                    .catch(error => {
+                        console.log("Your order has not been saved, please try again", error);
+                    });
 
-                this.orderConfirmationMessage = `Thank you, ${ this.order.firstName }! Your order has been submitted.`;
-                
+                this.orderConfirmationMessage = `Thank you, ${this.order.firstName}! Your order has been submitted.`;
+
                 this.order = {
                     firstName: "",
                     surname: "",
@@ -179,8 +179,8 @@ var app = new Vue({
 
                 // Basket becomes empty after order placed
                 this.basket = [];
-                this.showLessons = false; // Keep user on checkout page to show message
-               
+                this.showLessons = false; // Keep user on checkout page 
+
             } else {
                 // Displays error message if checkout form is incorrect
                 this.orderConfirmationMessage = "Error occurred, please correct the form details.";

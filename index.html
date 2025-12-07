@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,119 +11,118 @@
     <script src="./vue.js?v=2" defer></script>
 
 </head>
+
 <body>
-<div id="app">
-    <header>
-        <h1>{{ website }}</h1>
-    </header>
+    <div id="app">
+        <header>
+            <h1>{{ website }}</h1>
+        </header>
 
-    <button @click="displayCheckout" :disabled="basket.length === 0">
-        {{ lessonsInBasket }}
-        <span class="fa-solid fa-cart-shopping"></span>
-        Checkout
-    </button>
+        <button @click="displayCheckout" :disabled="basket.length === 0">
+            {{ lessonsInBasket }}
+            <span class="fa-solid fa-cart-shopping"></span>
+            Checkout
+        </button>
 
-    <!--Sorting-->
-    <main>
-        <div v-if="showLessons">
-            <div class="sorting-controls">
-                <label>Sort By:</label>
-                <select v-model="sortAttribute">
-                    <option value="subject">Subject</option>
-                    <option value="location">Location</option>
-                    <option value="price">Price</option>
-                    <option value="space_available">Space available</option>
-                </select>
+        <!--Sorting-->
+        <main>
+            <div v-if="showLessons">
+                <div class="sorting-controls">
+                    <label>Sort By:</label>
+                    <select v-model="sortAttribute">
+                        <option value="subject">Subject</option>
+                        <option value="location">Location</option>
+                        <option value="price">Price</option>
+                        <option value="space_available">Space available</option>
+                    </select>
 
-                <label>Order:</label>
-                <select v-model="sortOrder">
-                    <option value="asc">Ascending</option>
-                    <option value="desc">Descending</option>
-                </select>
-            </div>
+                    <label>Order:</label>
+                    <select v-model="sortOrder">
+                        <option value="asc">Ascending</option>
+                        <option value="desc">Descending</option>
+                    </select>
+                </div>
 
-            <!--All of the lessons being displayed-->
+                <!--All of the lessons being displayed-->
 
-            <div v-for="(lesson, index) in sortedLessons" :key="index" class="lesson-template">
-                <img :src=" 'https://cst3144-school-app.onrender.com/' + lesson.image" :alt="lesson.subject">
-                <h3>{{ lesson.subject }}</h3>
-                <p>{{ lesson.location }}</p>
-                <p>Price: £{{ lesson.price }}</p>
-                <p v-if="lesson.space_available > 0">Spaces available: {{ lesson.space_available }}</p>
-                <p v-else>You have reached the maximum number of lessons</p>
-                <input type="button" value="Add to basket" 
-                       @click="addLessonToBasket(lesson)" 
-                       :disabled="lesson.space_available === 0">
-            </div>
-        </div>
-
-        <!--Checkout Section-->
-        <div v-else>
-            <h1>Checkout Page</h1>
-            <p v-if="orderConfirmationMessage" 
-               style="text-align:center; color:red; font-weight:bold;">
-               {{ orderConfirmationMessage }}
-            </p>
-
-            <div v-if="basket.length > 0">
-                <div v-for="(lesson, index) in basket" :key="index" class="lesson-template">
+                <div v-for="(lesson, index) in sortedLessons" :key="index" class="lesson-template">
                     <img :src=" 'https://cst3144-school-app.onrender.com/' + lesson.image" :alt="lesson.subject">
                     <h3>{{ lesson.subject }}</h3>
                     <p>{{ lesson.location }}</p>
                     <p>Price: £{{ lesson.price }}</p>
-                    <input type="button" value="Remove from basket"
-                    @click="removeLesson(index, lesson)">
-                </div>
-
-                <!--Checkout form fields-->
-                <div class="checkout-form">
-                    <h2>Personal details</h2>
-
-                    <div class="form-field">
-                          <label>First name:</label>
-                    <input type="text" v-model.trim="order.firstName">
-                    </div>
-                  
-                    <div  class="form-field">
-                    <label>Surname:</label>
-                    <input type="text" v-model.trim="order.surname">
-                    </div>
-              
-                    <div class="form-field">
-                         <label>Phone number:</label>
-                    <input type="text" v-model.number="order.phone">
-                    </div>
-                   
-                    <div class="form-field">
-                        <label>Address:</label>
-                    <input type="text" v-model.trim="order.address">
-                    </div>
-                    
-                    <div class="form-field">
-                           <label>City:</label>
-                    <input type="text" v-model.trim="order.city">
-                    </div>
-                 
-                    <div class="form-field">
-                    <label>Postcode:</label>
-                    <input type="text" v-model.trim="order.postcode">
-                    </div>
-                    
-                    <div class="form-field">
-                    <label>Email:</label>
-                    <input type="text" v-model.trim="order.email">
-                    </div>
-                   
-
-                    <button :disabled="!isCheckoutFormValid" @click="submitOrder">Checkout</button>
+                    <p v-if="lesson.space_available > 0">Spaces available: {{ lesson.space_available }}</p>
+                    <p v-else>You have reached the maximum number of lessons</p>
+                    <input type="button" value="Add to basket" @click="addLessonToBasket(lesson)"
+                        :disabled="lesson.space_available === 0">
                 </div>
             </div>
 
-            <p v-else-if="basket.length === 0 && !orderConfirmationMessage" style="text-align:center; color:red;">
-                Your basket is empty.
-            </p>
-        </div>
-    </main>
-</div>
+            <!--Checkout Section-->
+            <div v-else>
+                <h1>Checkout Page</h1>
+                <p v-if="orderConfirmationMessage" style="text-align:center; color:red; font-weight:bold;">
+                    {{ orderConfirmationMessage }}
+                </p>
+
+                <div v-if="basket.length > 0">
+                    <div v-for="(lesson, index) in basket" :key="index" class="lesson-template">
+                        <img :src=" 'https://cst3144-school-app.onrender.com/' + lesson.image" :alt="lesson.subject">
+                        <h3>{{ lesson.subject }}</h3>
+                        <p>{{ lesson.location }}</p>
+                        <p>Price: £{{ lesson.price }}</p>
+                        <input type="button" value="Remove from basket" @click="removeLesson(index, lesson)">
+                    </div>
+
+                    <!--Checkout form fields-->
+                    <div class="checkout-form">
+                        <h2>Personal details</h2>
+
+                        <div class="form-field">
+                            <label>First name:</label>
+                            <input type="text" v-model.trim="order.firstName">
+                        </div>
+
+                        <div class="form-field">
+                            <label>Surname:</label>
+                            <input type="text" v-model.trim="order.surname">
+                        </div>
+
+                        <div class="form-field">
+                            <label>Phone number:</label>
+                            <input type="text" v-model.number="order.phone">
+                        </div>
+
+                        <div class="form-field">
+                            <label>Address:</label>
+                            <input type="text" v-model.trim="order.address">
+                        </div>
+
+                        <div class="form-field">
+                            <label>City:</label>
+                            <input type="text" v-model.trim="order.city">
+                        </div>
+
+                        <div class="form-field">
+                            <label>Postcode:</label>
+                            <input type="text" v-model.trim="order.postcode">
+                        </div>
+
+                        <div class="form-field">
+                            <label>Email:</label>
+                            <input type="text" v-model.trim="order.email">
+                        </div>
+
+
+                        <button :disabled="!isCheckoutFormValid" @click="submitOrder">Checkout</button>
+                    </div>
+                </div>
+
+                <p v-else-if="basket.length === 0 && !orderConfirmationMessage" style="text-align:center; color:red;">
+                    Your basket is empty.
+                </p>
+            </div>
+        </main>
+    </div>
 </body>
+
 </html>
